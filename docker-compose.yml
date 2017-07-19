@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web:
+    image: "nginx:alpine"
+    ports:
+      - 8080:80
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/hosts.conf:/etc/nginx/conf.d/hosts.conf
+      - ~/Code:/var/www/html
+  php:
+    image: "majesko/laravel-php:latest"
+    volumes:
+      - ~/Code:/var/www/html
+  db:
+    image: "mariadb:latest"
+    ports:
+      - 63306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_USER=developer
+      - MYSQL_PASSWORD=secret
